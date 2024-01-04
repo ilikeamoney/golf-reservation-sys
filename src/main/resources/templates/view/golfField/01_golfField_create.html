@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>GolfField Create</title>
+</head>
+<body>
+<div th:replace="fragments/mainHeader :: mainHeader"></div>
+<form action="/create-my-golfField" method="post">
+    <table class="golf-field-form">
+        <tr>
+            <td colspan="2">골프장 등록</td>
+        </tr>
+        <tr>
+            <td>
+                <label for="field-name">필드 이름</label>
+            </td>
+            <td>
+                <input id="field-name" type="text" name="filedName" value="그린 골프"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="location">주소</label>
+            </td>
+            <td>
+                <input id="location" type="text" name="location" readonly>
+            </td>
+            <td>
+                <input type="button" value="주소검색" onclick="addressEvent()"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="detail-location">상세 주소</label>
+            </td>
+            <td>
+                <input id="detail-location" type="text" name="locationDetail" value="할머니 국밥 집 옆">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="capacity">인원</label>
+            </td>
+            <td>
+                <input id="capacity" type="text" name="capacity" value="4">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="price">가격</label>
+            </td>
+            <td>
+                <input id="price" type="text" name="price" value="20000">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" onclick="window.location.href='/'" value="뒤로가기">
+            </td>
+            <td>
+                <input type="submit" value="추가하기">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    addressEvent = () => {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+                document.getElementById("location").value = data.address;
+            }
+        }).open();
+    };
+</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div class="main-body" th:fragment="loginMainBody">
+    <table>
+        <tr>
+            <td>
+                <a href="/golf-fields">모든 골프장 목록</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/my-reservation">골프장 예약 목록</a>
+            </td>
+        </tr>
+        <tr th:if="${authority eq 'USER'}">
+            <td>
+                <a href="/change-authority">비즈니스 등록</a>
+            </td>
+        </tr>
+        <tr th:if="${authority eq 'BUSINESS'}">
+            <td>
+                <a href="/my-golf-fields">나의 골프장 목록</a>
+            </td>
+        </tr>
+        <tr th:if="${authority eq 'BUSINESS'}">
+            <td>
+                <a href="/create-my-golfField">골프장 등록</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/remove-member">회원 탈퇴</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a href="/logout">로그아웃</a>
+            </td>
+        </tr>
+    </table>
+</div>

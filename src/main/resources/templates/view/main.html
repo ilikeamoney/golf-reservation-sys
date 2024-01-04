@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<div th:replace="fragments/mainHeader :: mainHeader"></div>
+<div th:if="${memLog eq null}">
+    <div th:replace="fragments/mainBody :: mainBody"></div>
+</div>
+<div th:if="${memLog ne null}">
+    <div th:replace="fragments/loginMainBody :: loginMainBody"></div>
+</div>
+</body>
+</html>

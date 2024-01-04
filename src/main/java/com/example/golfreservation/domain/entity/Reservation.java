@@ -2,10 +2,9 @@ package com.example.golfreservation.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Getter
@@ -24,4 +23,18 @@ public class Reservation {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @OneToOne
+    @JoinColumn(name = "field_time_id")
+    private FieldTime fieldTime;
+
+    @Builder
+    public Reservation(GolfField golfField, Member member, FieldTime fieldTime) {
+        this.golfField = golfField;
+        this.member = member;
+        this.fieldTime = fieldTime;
+        golfField.getReservations().add(this);
+        member.getReservations().add(this);
+        fieldTime.setReservation(this);
+    }
 }

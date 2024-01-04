@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>Field Detail User</title>
+</head>
+<body>
+<div th:replace="fragments/mainHeader :: mainHeader"></div>
+<table class="golf-field-form">
+    <tr>
+        <td colspan="2">
+            <p th:text="${field.fieldName + ' 예약시간 목록'}"></p>
+        </td>
+    </tr>
+    <tr th:each="fieldTime : ${fieldTimes}">
+        <td th:if="${fieldTime.state eq false and fieldAdminId ne memLog}">
+            <p th:text="${fieldTime.localDateTime}"></p>
+        </td>
+        <td th:if="${fieldTime.state eq false and fieldAdminId ne memLog}">
+            <input type="button" value="에약하기" th:onclick="|window.location.href='/reservation?fieldId=${field.id}&fieldTimeId=${fieldTime.golfFieldTimeId}'|"/>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

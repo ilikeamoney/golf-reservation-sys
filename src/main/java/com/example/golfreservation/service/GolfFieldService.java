@@ -1,11 +1,11 @@
 package com.example.golfreservation.service;
 
-import com.example.golfreservation.domain.GolfFieldDto;
+import com.example.golfreservation.domain.dto.GolfFieldDto;
 import com.example.golfreservation.domain.edit.EditGolfField;
 import com.example.golfreservation.domain.entity.FieldTime;
 import com.example.golfreservation.domain.entity.GolfField;
 import com.example.golfreservation.domain.entity.Member;
-import com.example.golfreservation.domain.form.FieldTimeDto;
+import com.example.golfreservation.domain.dto.FieldTimeDto;
 import com.example.golfreservation.domain.form.FieldTimeForm;
 import com.example.golfreservation.domain.form.GolfFieldForm;
 import com.example.golfreservation.repository.FieldTimeRepo;
@@ -109,7 +109,6 @@ public class GolfFieldService {
                         .build());
             }
 
-            log.info("dateTime = {}", LocalDateTime.of(year, month, day, time, 0));
         }
     }
 
@@ -139,10 +138,33 @@ public class GolfFieldService {
 
             fieldTimeDto.setGolfFieldTimeId(fieldTime.getId());
             fieldTimeDto.setLocalDateTime(fieldTime.getLocalDateTime());
+            fieldTimeDto.setState(fieldTime.getCheckState());
 
             fieldTimeDtos.add(fieldTimeDto);
         }
 
         return fieldTimeDtos;
+    }
+
+    public String editLocation(String location, String locationDetail) {
+        return String.valueOf(location + "-" + locationDetail);
+    }
+
+    public List<GolfFieldDto> getAll() {
+        List<GolfFieldDto> golfFieldDtos = new ArrayList<>();
+
+        for (GolfField golfField : golfFieldRepo.findAll()) {
+            GolfFieldDto golfFieldDto = new GolfFieldDto();
+
+            golfFieldDto.setId(golfField.getId());
+            golfFieldDto.setFieldName(golfField.getFieldName());
+            golfFieldDto.setLocation(golfField.getLocation());
+            golfFieldDto.setCapacity(golfField.getCapacity());
+            golfFieldDto.setPrice(golfField.getPrice());
+
+            golfFieldDtos.add(golfFieldDto);
+        }
+
+        return golfFieldDtos;
     }
 }

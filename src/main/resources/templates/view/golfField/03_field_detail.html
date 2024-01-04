@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>Field Detail</title>
+</head>
+<body>
+<div th:replace="fragments/mainHeader :: mainHeader"></div>
+<form th:action="@{/field-detail/{fieldId} (fieldId=${golfField.id})}" method="post">
+<table class="golf-field-form">
+    <tr>
+        <td colspan="3">
+            <a href="">예약자 확인</a>
+        </td>
+    </tr>
+    <tr>
+        <td>필드명</td>
+        <td colspan="2">
+            <p th:text="${golfField.fieldName}"></p>
+        </td>
+    </tr>
+    <tr>
+        <td>위치</td>
+        <td colspan="2">
+            <p th:text="${golfField.location}"></p>
+        </td>
+    </tr>
+    <tr>
+        <td>골프장 가격</td>
+        <td colspan="2">
+            <p th:text="${golfField.price} + '원'"></p>
+        </td>
+    </tr>
+    <tr>
+        <td>골프장 인원 수</td>
+        <td colspan="2">
+            <p th:text="${golfField.capacity} + '명'"></p>
+        </td>
+    </tr>
+    <tr>
+        <td th:text="${fieldTimeForm.year + '년' + fieldTimeForm.month + '월' + fieldTimeForm.day + '일'}"></td>
+        <td>
+            <label for="time"></label>
+            <input id="time" type="text" name="time">시
+        </td>
+        <td>
+            <input type="hidden" name="golfFieldId" th:value="${golfField.id}">
+            <input type="submit" value="시간추가">
+        </td>
+    </tr>
+    <tr th:each="fieldTime : ${fieldTimes}">
+        <td class="edit-time-form">
+            <label>
+                <input class="edit-time" type="text" name="type" placeholder="시간을 입력해 주세요.">
+            </label>
+            <input type="button" value="수정완료" th:attr="fieldTimeId=${fieldTime.golfFieldTimeId}, golfFieldId=${golfField.id}" onclick="editTimeCom(this)">
+        </td>
+        <td th:if="${fieldTime.state eq false}">
+            <p th:text="${fieldTime.localDateTime}"></p>
+        </td>
+        <td th:if="${fieldTime.state eq false}">
+            <input type="button" value="수정" class="edit-time-btn" onclick="editTime(this)"/>
+        </td>
+        <td th:if="${fieldTime.state eq false}">
+            <input type="button" value="삭제" th:onclick="|window.location.href='/delete-field-time?fieldId=${golfField.id}&fieldTimeId=${fieldTime.golfFieldTimeId}'|"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <input type="button" value="뒤로가기" onclick="window.location.href='/'"/>
+        </td>
+    </tr>
+</table>
+</form>
+</body>
+<script>
+    editTime = (data) => {
+        let editTimeBtn = document.querySelectorAll(".edit-time-btn");
+        let editTimeForm = document.querySelectorAll(".edit-time-form");
+
+        let idx = 0;
+        for (let i = 0; i < editTimeBtn.length; i++) {
+            if (editTimeBtn[i] === data) {
+                idx = i;
+            }
+        }
+
+        if (editTimeForm[idx].style.display === "block") {
+            editTimeForm[idx].style.display = "none";
+        } else {
+            editTimeForm[idx].style.display = "block";
+        }
+    }
+
+    editTimeCom = (data) => {
+        let times = document.querySelectorAll(".edit-time");
+        let filedTimeId = data.getAttribute("fieldTimeId");
+        let golfFieldId = data.getAttribute("golfFieldId");
+
+        let time = 0
+        for (let i = 0; i < times.length; i++) {
+            if (parseInt(times[i].value) > 0) {
+                time = times[i].value;
+            }
+        }
+
+        window.location.href='/edit-field-time?golfFieldId=' + golfFieldId + '&fieldTimeId=' + filedTimeId + '&time=' + time;
+    }
+
+</script>
+</html>

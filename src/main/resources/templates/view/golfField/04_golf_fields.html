@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>Golf Fields</title>
+</head>
+<body>
+<div th:replace="fragments/mainHeader :: mainHeader"></div>
+<table class="golf-field-form">
+    <tr>
+        <td colspan="4">
+            <p th:text="'총 ' + ${golfFields.size() + '개 골프장이 있습니다.'}"></p>
+        </td>
+    </tr>
+    <tr>
+        <td>이름</td>
+        <td>위치</td>
+        <td>가격</td>
+        <td>수용 인원</td>
+    </tr>
+    <tr th:each="golfField : ${golfFields}">
+        <td>
+            <a th:href="@{/field-detail-user/{fieldId} (fieldId=${golfField.id})}" th:text="${golfField.fieldName}"></a>
+        </td>
+        <td>
+            <p th:text="${golfField.location}"></p>
+        </td>
+        <td>
+            <p th:text="${golfField.price} + '원'"></p>
+        </td>
+        <td>
+            <p th:text="${golfField.capacity} + '명'"></p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

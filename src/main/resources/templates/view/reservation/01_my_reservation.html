@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>My Reservation</title>
+</head>
+<body>
+<div th:replace="fragments/mainHeader :: mainHeader"></div>
+<table class="reservation-form">
+    <tr>
+        <td colspan="6">
+            <p th:text="'나의 예약 목록' + ${myReservation.size()} + '개'"></p>
+        </td>
+    </tr>
+    <tr>
+        <td>예약자 성함</td>
+        <td>예약 시간</td>
+        <td>골프장 이름</td>
+        <td>위치</td>
+        <td>방문 인원</td>
+        <td>결제 금액</td>
+    </tr>
+    <tr th:each="reservation : ${myReservation}">
+        <td>
+            <p th:text="${reservation.reservationName}"></p>
+        </td>
+        <td>
+            <p th:text="${reservation.dateTime}"></p>
+        </td>
+        <td>
+            <p th:text="${reservation.fieldName}"></p>
+        </td>
+        <td>
+            <p th:text="${reservation.location}"></p>
+        </td>
+        <td>
+            <p th:text="${reservation.capacity} + '명'"></p>
+        </td>
+        <td>
+            <p th:text="${reservation.price} + '원'"></p>
+        </td>
+        <td>
+            <input type="button" th:onclick="|window.location.href='/delete-reservation?reId=${reservation.id}'|" value="취소">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="6">
+            <input type="button" value="뒤로가기" onclick="window.location.href='/'">
+        </td>
+    </tr>
+</table>
+</body>
+</html>

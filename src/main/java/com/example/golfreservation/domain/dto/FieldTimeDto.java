@@ -1,4 +1,4 @@
-package com.example.golfreservation.domain.form;
+package com.example.golfreservation.domain.dto;
 
 import lombok.Data;
 
@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 public class FieldTimeDto {
 
     private Long golfFieldTimeId;
+
+    private Boolean state;
 
     private LocalDateTime localDateTime;
 

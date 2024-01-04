@@ -1,0 +1,44 @@
+
+.main-header table {
+    margin: 0 auto;
+}
+
+.main-body table {
+    margin: 0 auto;
+}
+
+.main-body table tr td {
+    text-align: center;
+    font-size: 25px;
+}
+
+.member-form {
+    margin: 0 auto;
+}
+
+.member-form {
+    text-align: center;
+    font-size: 25px;
+}
+
+.golf-field-form {
+    margin: 0 auto;
+}
+
+.golf-field-form {
+    text-align: center;
+    font-size: 25px;
+}
+
+.reservation-form {
+    margin: 0 auto;
+}
+
+.reservation-form tr td {
+    text-align: center;
+    font-size: 25px;
+}
+
+.edit-time-form {
+    display: none;
+}

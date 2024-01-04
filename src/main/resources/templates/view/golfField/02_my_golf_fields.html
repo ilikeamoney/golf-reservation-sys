@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <meta charset="UTF-8">
+    <title>My Golf Fields</title>
+</head>
+<body>
+<div th:replace="fragments/mainHeader :: mainHeader"></div>
+<table class="golf-field-form">
+    <tr>
+        <td colspan="2">
+            <h3 th:text="${memberName} + '님 골프장 등록 수 ' + ${golfFields.size()} + '개 입니다.'"></h3>
+        </td>
+    </tr>
+    <tr>
+        <td>골프장 이름</td>
+        <td>위치</td>
+    </tr>
+    <tr th:each="golfField : ${golfFields}">
+        <td>
+            <a th:href="@{/field-detail/{fieldId} (fieldId=${golfField.id})}" th:text="${golfField.fieldName}"></a>
+        </td>
+        <td>
+            <p th:text="${golfField.location}"></p>
+        </td>
+        <td>
+            <input type="button" th:onclick="|window.location.href='/delete-golf-field?fieldId=${golfField.id}'|" value="삭제">
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="button" value="뒤로가기" onclick="window.location.href='/'">
+        </td>
+    </tr>
+</table>
+</body>
+</html>
